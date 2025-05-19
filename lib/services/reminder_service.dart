@@ -4,11 +4,12 @@ import 'package:remynder/models/reminder_model.dart';
 class ReminderService {
   final _db = FirebaseFirestore.instance.collection('reminders');
 
-  Future<void> addReminder(ReminderModel reminder) async {
+  Future<int> addReminder(ReminderModel reminder) async {
     try {
       final int id = DateTime.now().millisecondsSinceEpoch & 0x7FFFFFFF;
       final data = {...reminder.toJson(), 'id': id};
       await _db.doc(id.toString()).set(data);
+      return id;
     } catch (e) {
       rethrow;
     }

@@ -146,9 +146,9 @@ class _HomePageState extends State<HomePage> {
               _isLoading = true;
             });
 
-            await _reminderService.addReminder(reminder);
+            final reminderId = await _reminderService.addReminder(reminder);
             await NotificationService.createNotification(
-              id: reminder.id,
+              id: reminderId,
               title: 'Reminder: ${reminder.title}',
               body: DateFormat('HH:mm - dd MMM yyyy').format(reminder.scheduledDate),
               scheduledDate: reminder.scheduledDate,
