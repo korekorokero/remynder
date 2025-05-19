@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "917255006816",
+    "project_id": "remynder-6d0d2",
+    "storage_bucket": "remynder-6d0d2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917255006816:android:57fa7cd95edb71d391f105",
+        "android_client_info": {
+          "package_name": "com.example.remynder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtuxLt-O-yEM0pf-bt4psWrGcZqcFM6p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
