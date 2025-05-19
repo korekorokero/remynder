@@ -6,7 +6,7 @@ class ReminderService {
 
   Future<void> addReminder(ReminderModel reminder) async {
     try {
-      final int id = DateTime.now().millisecondsSinceEpoch;
+      final int id = DateTime.now().millisecondsSinceEpoch & 0x7FFFFFFF;
       final data = {...reminder.toJson(), 'id': id};
       await _db.doc(id.toString()).set(data);
     } catch (e) {
@@ -16,15 +16,13 @@ class ReminderService {
 
   Future<List<ReminderModel>> readReminders() async {
     try {
-      final querySnapshot = await _db.get();
-
-      final remindersList = querySnapshot.docs.map((doc) {
-        return ReminderModel.fromJson(doc.data());
-      }).toList();
-
-      remindersList.sort((a, b) => b.scheduledDate.compareTo(a.scheduledDate));
-
-      return remindersList;
+      final snapshot = await _db.get();
+      return snapshot.docs.map((doc) {
+        final json = doc.data();
+        json['id'] = int.tryParse(doc.id)?.toSigned(32) ?? json['id'];
+        return ReminderModel.fromJson(json);
+      }).toList()
+        ..sort((a, b) => b.scheduledDate.compareTo(a.scheduledDate));
     } catch (e) {
       rethrow;
     }
